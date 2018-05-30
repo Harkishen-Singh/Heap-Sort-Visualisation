@@ -1,4 +1,4 @@
-var inputObject = [3,5,7,1,4,23,0,8,9,11,45,54];
+var inputObject = [3,5,7,1,4,23,0];
 var svgElement = d3.select('body').append('svg').attr('height','100%').attr('width','100%');
 var elementBinaryTree = {id:0,value:0,head_id:0,tail_left_id:0,tail_right_id:0}; //  'id',value,'upper head id','lower left id', 'lower right id'
 class main_handler {
@@ -31,6 +31,8 @@ class main_handler {
         let x,sum,y,k=0,lastIndex=1;
         console.log('Reached heapAssignment()');
         for(var i =0; i<this.sizeArr; i++){
+            try{
+            k = i;
             if(i==0)
                 for(var j=i;j<Math.pow(2,i);j++){
                     if(this.binaryTree[j]['tail_left_id']==0){
@@ -45,6 +47,7 @@ class main_handler {
             else
             for(var j=i;j<=Math.pow(2,i);j++){
                 if(this.binaryTree[j]['tail_left_id']==0){
+                    this.binaryTree[j]['head_id'] = this.binaryTree[k-1]['id'];
                     console.log('Worked successfully!')
                     this.binaryTree[j]['tail_left_id']=this.binaryTree[lastIndex]['id'];
                     lastIndex++;console.log(lastIndex);
@@ -53,7 +56,33 @@ class main_handler {
                 }
             }
         }
-        console.log(this.binaryTree);
+            catch(e){
+            continue;
+        }
+        }
+        
+        this.heapHeadAllotment();
+    }
+    heapHeadAllotment(){
+        for(var i=0;i<this.sizeArr;i++){
+            if(i != 0){
+                let id1 = this.binaryTree[i]['tail_left_id'];
+                for(var j=0;j<this.sizeArr;j++){
+                    if(this.binaryTree[j]['id']==id1 && this.binaryTree[j]['head_id']==0){
+                        console.log(this.binaryTree[i] + ' ' + this.binaryTree[j]);
+                        this.binaryTree[j]['head_id']=this.binaryTree[i]['id'];
+                    }
+                }
+                let id2 = this.binaryTree[i]['tail_left_id'];
+                if(id2 != 0){
+                    for(var j=0;j<this.sizeArr;j++){
+                    if(this.binaryTree[j]['id']==id2 && this.binaryTree[j]['head_id']==0){
+                        this.binaryTree[j]['head_id']=this.binaryTree[i]['id'];
+                    }
+                } 
+            }  
+        }
+        }console.log(this.binaryTree);
     }
 }
 
