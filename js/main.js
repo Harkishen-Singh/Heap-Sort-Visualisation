@@ -1,4 +1,4 @@
-var inputObject = [3,5,7,1,4,23,0,34,65,78,23,99];
+var inputObject = [6,5,4,3,2,1];
 var svgElement = d3.select('body').append('svg').attr('height','100%').attr('width','100%');
 var elementBinaryTree = {id:0,value:0,head_id:0,tail_left_id:0,tail_right_id:0}; //  'id',value,'upper head id','lower left id', 'lower right id'
 class main_handler {
@@ -29,7 +29,6 @@ class main_handler {
     
     heapAssignment(){
         let x,sum,y,k=0,lastIndex=1;
-        console.log('Reached heapAssignment()');
         for(var i =0; i<this.sizeArr; i++){
             try{
             k = i;
@@ -38,21 +37,19 @@ class main_handler {
                     if(this.binaryTree[j]['tail_left_id']==0){
                 
                         this.binaryTree[j]['tail_left_id']=this.binaryTree[lastIndex]['id'];
-                        lastIndex++;console.log(lastIndex);
+                        lastIndex++;
                         this.binaryTree[j]['tail_right_id']=this.binaryTree[lastIndex]['id'];
-                        lastIndex++;  
-                        console.log(lastIndex);
+                        lastIndex++;
                     }
             }
             else
             for(var j=i;j<=Math.pow(2,i);j++){
                 if(this.binaryTree[j]['tail_left_id']==0){
                     this.binaryTree[j]['head_id'] = this.binaryTree[k-1]['id'];
-                    console.log('Worked successfully!')
                     this.binaryTree[j]['tail_left_id']=this.binaryTree[lastIndex]['id'];
-                    lastIndex++;console.log(lastIndex);
+                    lastIndex++;
                     this.binaryTree[j]['tail_right_id']=this.binaryTree[lastIndex]['id'];
-                    lastIndex++; console.log(lastIndex);            
+                    lastIndex++;           
                 }
             }
         }
@@ -69,12 +66,10 @@ class main_handler {
             if(i != 0){
                 ccc++;
                 let id1 = this.binaryTree[i]['tail_left_id'];
-                if(id1 != 0)
+                if(true)
                 for(var j=0;j<this.sizeArr;j++){
                     
                     if(this.binaryTree[j]['id']==id1 ){
-                        console.log('entered id1' + ccc)
-                        console.log(this.binaryTree[i] + ' ' + this.binaryTree[j]);
                         this.binaryTree[j]['head_id']=this.binaryTree[i]['id'];
                     }
                 }
@@ -83,40 +78,56 @@ class main_handler {
                     for(var j=0;j<this.sizeArr;j++){
                         
                     if(this.binaryTree[j]['id']==id2 ){
-                        console.log('entered id2'+ ccc)
                         this.binaryTree[j]['head_id']=this.binaryTree[i]['id'];
                     }
                 } 
             }  
         }
         }//console.log(this.binaryTree);
-        this.heapSort();
+        this.heapSort(this.binaryTree);
     }
 
-    heapSort(arr=this.binaryTree, index=this.sizeArr-1){
+    heapSort(arr, index=this.sizeArr-1){
         console.log('heapSort() going on');
         let temp;
-        if(this.binaryTree[index]['value'] > this.binaryTree[
-            function(){
-                let aa = this.binaryTree[index]['head_id'];
-                for (var i = 0; i <this.sizeArr; i++) {
-                   if(this.binaryTree[i]['id']==aa)
-                        return i;
-                }
+        let aa = arr[index]['head_id'];
+        let Hindex = 0;
+        for(var i = 0; i <this.sizeArr; i++) {
+            if(arr[i]['id']==aa)
+            {
+                console.log('Id maatched at index : '+i);
+                Hindex = i;break;
             }
-            ]){
-            temp = this.binaryTree[index]['value'];
-            this.binaryTree[index]['value'] = this.binaryTree[this.binaryTree[index]['head_id']]
+        };
+        if(arr[index]['value'] > arr[Hindex]['value']){
+            console.log('Swapping')
+            temp = arr[index];
+            console.log(arr[Hindex])
+            arr[index] = arr[Hindex];
+            arr[Hindex] = temp;
+            console.log('Temp is ')
+            console.log(temp)
         }
-        else{
-            if(index>0){
-                index--;
-                this.heapSort(this.binaryTree, index);
+        
+        if(index>0){
+                index--;console.log('repeating');
+                this.heapSort(arr, index);
+        }
+        else{let checker = false;
+            for(var o = 0 ;o<this.sizeArr-1;o++){
+                if(arr[o]<arr[o+1])
+                    checker=true
             }
+            if(checker==true){
+                index = this.sizeArr-1;
+                this.heapSort(arr, index);
+            }
+
         }
-        console.log(this.binaryTree);        
+        console.log(arr);        
     }
 }
 
 var object = new main_handler(inputObject,(inputObject.length));
 object.treeGeneration();
+var inputObject = [3,8,2,4,3,7];

@@ -1,48 +1,44 @@
 var a = [ 9, 10, 2, 1, 5, 4, 3, 6, 8, 7, 13 ];
 
-function swap(a, i, j) {
-    var tmp = a[i];
-    a[i] = a[j];
-    a[j] = tmp;
-}
-
-function max_heapify(a, i, length) {
-    while (true) {
-        var left = i*2 + 1;
-        var right = i*2 + 2;
-        var largest = i;
-
-        if (left < length && a[left] > a[largest]) {
-            largest = left;
-        }
-
-        if (right < length && a[right] > a[largest]) {
-            largest = right;
-        }
-
-        if (i == largest) {
-            break;
-        }
-
-        swap(a, i, largest);
-        i = largest;
+function heapify(arr, n, i){
+    var largest = i ;
+   var  l = 2 * i + 1     ;
+   var r = 2 * i + 2     ;
+ 
+    
+    if (l < n && arr[i] < arr[l]){
+        largest = l;
     }
-}
-
-function heapify(a, length) {
-    for (var i = Math.floor(length/2); i >= 0; i--) {
-        max_heapify(a, i, length);
+    if (r < n && arr[largest] < arr[r]){
+        largest = r;
     }
-}
 
-function heapsort(a) {
-    heapify(a, a.length);
+    if (largest != i){
+        let temp = arr[i]
+        arr[i] = arr[largest]
+        arr[largest] = temp;
+        heapify(arr, n, largest)}
+ }
 
-    for (var i = a.length - 1; i > 0; i--) {
-        swap(a, i, 0);
-
-        max_heapify(a, 0, i-1);
+function heapSort(arr){
+    n = arr.length;
+ 
+    for(var i=n;i>=0;i--){
+        heapify(arr, n, i);
     }
-}
+ 
+    
+    for(var i=n-1;i>0;i--){
+        let temp = arr[i];
+        arr[i] = arr[0]
+        arr[0] = temp
+        heapify(arr, i, 0)}
+        console.log(arr);
+ }
 
-heapsort(a);
+arr = [ 12, 11, 13, 5, 6, 7]
+heapSort(arr)
+n = (arr).length
+/*console.log("Sorted array is")
+for(var i=0;i<n;i++)
+    console.log(arr[i])*/
