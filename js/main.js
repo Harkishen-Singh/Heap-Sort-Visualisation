@@ -89,7 +89,32 @@ class main_handler {
                 } 
             }  
         }
-        }console.log(this.binaryTree);
+        }//console.log(this.binaryTree);
+        this.heapSort();
+    }
+
+    heapSort(arr=this.binaryTree, index=this.sizeArr-1){
+        console.log('heapSort() going on');
+        let temp;
+        if(this.binaryTree[index]['value'] > this.binaryTree[
+            function(){
+                let aa = this.binaryTree[index]['head_id'];
+                for (var i = 0; i <this.sizeArr; i++) {
+                   if(this.binaryTree[i]['id']==aa)
+                        return i;
+                }
+            }
+            ]){
+            temp = this.binaryTree[index]['value'];
+            this.binaryTree[index]['value'] = this.binaryTree[this.binaryTree[index]['head_id']]
+        }
+        else{
+            if(index>0){
+                index--;
+                this.heapSort(this.binaryTree, index);
+            }
+        }
+        console.log(this.binaryTree);        
     }
 }
 
