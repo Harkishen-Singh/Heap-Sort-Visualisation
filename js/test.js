@@ -15,3 +15,12 @@ for(i=0;i<10;i++)
     x.push(i)
 
 console.log(x)
+/* if(k < this.sizeArr-2){
+                this.binaryTree[i]['tail_left_id'] = this.binaryTree[k+1]['id'];
+                this.binaryTree[i]['tail_right_id'] = this.binaryTree[k+2]['id'];
+                lastIndex = k+2;
+                    k = Math.pow(2,i+1);
+                }
+                else if(k<this.sizeArr){       
+                    this.binaryTree[i]['tail_left_id'] = this.binaryTree[k]['id'];k++;
+                }*/
