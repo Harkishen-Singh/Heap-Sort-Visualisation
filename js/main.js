@@ -1,4 +1,4 @@
-var inputObject = [3,5,7,1,4,23,0];
+var inputObject = [3,5,7,1,4,23,0,34,65,78,23,99];
 var svgElement = d3.select('body').append('svg').attr('height','100%').attr('width','100%');
 var elementBinaryTree = {id:0,value:0,head_id:0,tail_left_id:0,tail_right_id:0}; //  'id',value,'upper head id','lower left id', 'lower right id'
 class main_handler {
@@ -64,19 +64,26 @@ class main_handler {
         this.heapHeadAllotment();
     }
     heapHeadAllotment(){
+        var ccc =0;
         for(var i=0;i<this.sizeArr;i++){
             if(i != 0){
+                ccc++;
                 let id1 = this.binaryTree[i]['tail_left_id'];
+                if(id1 != 0)
                 for(var j=0;j<this.sizeArr;j++){
-                    if(this.binaryTree[j]['id']==id1 && this.binaryTree[j]['head_id']==0){
+                    
+                    if(this.binaryTree[j]['id']==id1 ){
+                        console.log('entered id1' + ccc)
                         console.log(this.binaryTree[i] + ' ' + this.binaryTree[j]);
                         this.binaryTree[j]['head_id']=this.binaryTree[i]['id'];
                     }
                 }
-                let id2 = this.binaryTree[i]['tail_left_id'];
-                if(id2 != 0){
+                let id2 = this.binaryTree[i]['tail_right_id'];
+                if(true){
                     for(var j=0;j<this.sizeArr;j++){
-                    if(this.binaryTree[j]['id']==id2 && this.binaryTree[j]['head_id']==0){
+                        
+                    if(this.binaryTree[j]['id']==id2 ){
+                        console.log('entered id2'+ ccc)
                         this.binaryTree[j]['head_id']=this.binaryTree[i]['id'];
                     }
                 } 
