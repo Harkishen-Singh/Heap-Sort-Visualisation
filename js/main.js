@@ -1,4 +1,4 @@
-var inputObject = [6,5,4,3,2,1];
+var inputObject = [6,5,67,45,34,23];
 var svgElement = d3.select('body').append('svg').attr('height','100%').attr('width','100%');
 var elementBinaryTree = {id:0,value:0,head_id:0,tail_left_id:0,tail_right_id:0}; //  'id',value,'upper head id','lower left id', 'lower right id'
 class main_handler {
@@ -84,10 +84,12 @@ class main_handler {
             }  
         }
         }//console.log(this.binaryTree);
-        this.heapSort(this.binaryTree);
+        //this.heapSort(this.binaryTree,this.sizeArr-1);
+        var array = this.binaryTree;
+        this.heapify(array);
     }
 
-    heapSort(arr, index=this.sizeArr-1){
+    heapSort(arr, index){
         console.log('heapSort() going on');
         let temp;
         let aa = arr[index]['head_id'];
@@ -100,32 +102,68 @@ class main_handler {
             }
         };
         if(arr[index]['value'] > arr[Hindex]['value']){
-            console.log('Swapping')
             temp = arr[index];
-            console.log(arr[Hindex])
             arr[index] = arr[Hindex];
             arr[Hindex] = temp;
-            console.log('Temp is ')
-            console.log(temp)
         }
         
-        if(index>0){
+        if(index>1){
                 index--;console.log('repeating');
                 this.heapSort(arr, index);
         }
         else{let checker = false;
             for(var o = 0 ;o<this.sizeArr-1;o++){
-                if(arr[o]<arr[o+1])
+                if(arr[o]>arr[o+1])
                     checker=true
+                else{
+                    checker=false;break;
+                }
             }
-            if(checker==true){
-                index = this.sizeArr-1;
+            if(checker==false){
+                index = this.sizeArr-1;console.log(arr);     
                 this.heapSort(arr, index);
             }
 
         }
         console.log(arr);        
     }
+    heapify(arr){ // creating max heap
+        for(var i=0;i<this.sizeArr;i++){
+            for(var j=this.sizeArr-1;j>=0;j--){
+                if(arr[j]['head_id']==0)
+                    continue;
+                else{
+                    let id_head = arr[j]['head_id'],tmp,tmp2;
+                    for(var k=this.sizeArr-1;k>=0;k--){
+                        if(arr[k]['id']==id_head){
+                            if(arr[k]['value']<arr[j]['value']){
+                                console.log('matched')
+                                let temp_head_id = arr[k]['head_id'],
+                                    temp_tail_r_id = arr[k]['tail_right_id'],
+                                    temp_tail_l_id = arr[k]['tail_left_id'],
+                                    temp_value = arr[k]['value'],
+                                    temp_id = arr[k]['id'];
+                                arr[k]['id']=arr[j]['id'];
+                                arr[k]['head_id']=arr[j]['head_id'];
+                                arr[k]['tail_right_id']=arr[j]['tail_right_id'];
+                                arr[k]['tail_left_id']=arr[j]['tail_left_id'];
+                                arr[k]['value']=arr[j]['value'];
+                                arr[k]['id']=temp_id;
+                                arr[k]['head_id']=temp_head_id;
+                                arr[k]['tail_right_id']=temp_tail_r_id;
+                                arr[k]['tail_left_id']=temp_tail_l_id;
+                                arr[k]['value']=temp_value;
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        console.log(arr);
+    }
+
+
 }
 
 var object = new main_handler(inputObject,(inputObject.length));
