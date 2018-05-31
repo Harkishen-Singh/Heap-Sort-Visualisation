@@ -137,7 +137,9 @@ class main_handler {
                     for(var k=this.sizeArr-1;k>=0;k--){
                         if(arr[k]['id']==id_head){
                             if(arr[k]['value']<arr[j]['value']){
+                                console.log('arr[k] : '+arr[k]['value']+'  arr[j] : '+arr[j]['value']);
                                 console.log('matched')
+
                                 let temp_head_id = arr[k]['head_id'],
                                     temp_tail_r_id = arr[k]['tail_right_id'],
                                     temp_tail_l_id = arr[k]['tail_left_id'],
@@ -148,12 +150,12 @@ class main_handler {
                                 arr[k]['tail_right_id']=arr[j]['tail_right_id'];
                                 arr[k]['tail_left_id']=arr[j]['tail_left_id'];
                                 arr[k]['value']=arr[j]['value'];
-                                arr[k]['id']=temp_id;
-                                arr[k]['head_id']=temp_head_id;
-                                arr[k]['tail_right_id']=temp_tail_r_id;
-                                arr[k]['tail_left_id']=temp_tail_l_id;
-                                arr[k]['value']=temp_value;
-
+                                arr[j]['id']=temp_id;
+                                arr[j]['head_id']=temp_head_id;
+                                arr[j]['tail_right_id']=temp_tail_r_id;
+                                arr[j]['tail_left_id']=temp_tail_l_id;
+                                arr[j]['value']=temp_value;
+                                console.log('arr[k] : '+arr[k]['value']+'  arr[j] : '+arr[j]['value']);
                             }
                         }
                     }
