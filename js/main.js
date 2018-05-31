@@ -1,4 +1,4 @@
-var inputObject = [6,5,67,45,34,23,90,13234,5345,231];
+var inputObject = [6,5,67,45,34,23,90,13234,5345,23];
 var svgElement = d3.select('body').append('svg').attr('height','100%').attr('width','100%');
 var elementBinaryTree = {id:0,value:0,head_id:0,tail_left_id:0,tail_right_id:0}; //  'id',value,'upper head id','lower left id', 'lower right id'
 class main_handler {
@@ -7,7 +7,7 @@ class main_handler {
         this.inputArr = obj;
         this.sizeArr = size;
         this.heapSize = 0;
-        
+        this.alternateArr = [];
         this.binaryTree = [];
         
     }
@@ -57,8 +57,6 @@ class main_handler {
             continue;
         }
         }
-        
-        this.heapHeadAllotment();
     }
     heapHeadAllotment(){
         var ccc =0;
@@ -86,7 +84,7 @@ class main_handler {
         }//console.log(this.binaryTree);
         //this.heapSort(this.binaryTree,this.sizeArr-1);
         var array = this.binaryTree;
-        this.heapify(array);
+        return (array);
     }
 
     heapSort(arr, index){
@@ -128,10 +126,13 @@ class main_handler {
         console.log(arr);        
     }
     heapify(arr){ // creating max heap
+        this.sizeArr = arr.length;
         for(var i=0;i<this.sizeArr;i++){
-            for(var j=this.sizeArr-1;j>=0;j--){
+            for(var j=this.sizeArr-1;j>0;j--){
+            try{
                 if(arr[j]['head_id']==0)
                     continue;
+
                 else{
                     let id_head = arr[j]['head_id'],tmp,tmp2;
                     for(var k=this.sizeArr-1;k>=0;k--){
@@ -146,15 +147,7 @@ class main_handler {
                                         temp_tail_l_id = arr[k]['tail_left_id'],
                                         temp_value = arr[k]['value'],
                                         temp_id = arr[k]['id'];
-                                    //arr[k]['id']=arr[k]['id'];
-                                    //arr[k]['head_id']=arr[j]['id'];
-                                    //arr[k]['tail_right_id']=arr[j]['tail_right_id'];
-                                    //arr[k]['tail_left_id']=arr[j]['tail_left_id'];
                                     arr[k]['value']=arr[j]['value'];
-                                    //arr[j]['id']=temp_id;
-                                    //arr[j]['head_id']=temp_id;
-                                    //arr[j]['tail_right_id']=temp_tail_r_id;
-                                    //rr[j]['tail_left_id']=temp_id;
                                     arr[j]['value']=temp_value;
                                     console.log('arr[k] : '+arr[k]['value']+'  arr[j] : '+arr[j]['value']);
                                 }
@@ -165,12 +158,26 @@ class main_handler {
                     }
                 }
             }
+            catch(e){console.log('err'); continue;}
+            }
         }
         console.log(arr);
+        //this.swapperheap(arr);
+        return arr;
     }
-
-
 }
-
-var object = new main_handler(inputObject,(inputObject.length));
+var x=inputObject;
+while(true){
+var object = new main_handler(x,(x.length));
 object.treeGeneration();
+var y = object.heapHeadAllotment();
+x = object.heapify(y);var newArrayFinal=[];
+var s = x.length;
+var tmp = x[0];
+x[0] = x[s-1];
+x[s-1] = tmp;newArrayFinal.push(x[s-1]);
+if(x.length!=0)
+    x.pop();
+else
+    break;
+}
