@@ -1,4 +1,4 @@
-var inputObject = [6,5,67,45,34,23];
+var inputObject = [6,5,67,45,34,23,90,13234,5345,231];
 var svgElement = d3.select('body').append('svg').attr('height','100%').attr('width','100%');
 var elementBinaryTree = {id:0,value:0,head_id:0,tail_left_id:0,tail_right_id:0}; //  'id',value,'upper head id','lower left id', 'lower right id'
 class main_handler {
@@ -139,23 +139,27 @@ class main_handler {
                             if(arr[k]['value']<arr[j]['value']){
                                 console.log('arr[k] : '+arr[k]['value']+'  arr[j] : '+arr[j]['value']);
                                 console.log('matched')
+                                if(true){
 
-                                let temp_head_id = arr[k]['head_id'],
-                                    temp_tail_r_id = arr[k]['tail_right_id'],
-                                    temp_tail_l_id = arr[k]['tail_left_id'],
-                                    temp_value = arr[k]['value'],
-                                    temp_id = arr[k]['id'];
-                                arr[k]['id']=arr[j]['id'];
-                                arr[k]['head_id']=arr[j]['head_id'];
-                                arr[k]['tail_right_id']=arr[j]['tail_right_id'];
-                                arr[k]['tail_left_id']=arr[j]['tail_left_id'];
-                                arr[k]['value']=arr[j]['value'];
-                                arr[j]['id']=temp_id;
-                                arr[j]['head_id']=temp_head_id;
-                                arr[j]['tail_right_id']=temp_tail_r_id;
-                                arr[j]['tail_left_id']=temp_tail_l_id;
-                                arr[j]['value']=temp_value;
-                                console.log('arr[k] : '+arr[k]['value']+'  arr[j] : '+arr[j]['value']);
+                                    let temp_head_id = arr[k]['head_id'],
+                                        temp_tail_r_id = arr[k]['tail_right_id'],
+                                        temp_tail_l_id = arr[k]['tail_left_id'],
+                                        temp_value = arr[k]['value'],
+                                        temp_id = arr[k]['id'];
+                                    //arr[k]['id']=arr[k]['id'];
+                                    //arr[k]['head_id']=arr[j]['id'];
+                                    //arr[k]['tail_right_id']=arr[j]['tail_right_id'];
+                                    //arr[k]['tail_left_id']=arr[j]['tail_left_id'];
+                                    arr[k]['value']=arr[j]['value'];
+                                    //arr[j]['id']=temp_id;
+                                    //arr[j]['head_id']=temp_id;
+                                    //arr[j]['tail_right_id']=temp_tail_r_id;
+                                    //rr[j]['tail_left_id']=temp_id;
+                                    arr[j]['value']=temp_value;
+                                    console.log('arr[k] : '+arr[k]['value']+'  arr[j] : '+arr[j]['value']);
+                                }
+                                
+
                             }
                         }
                     }
@@ -170,4 +174,3 @@ class main_handler {
 
 var object = new main_handler(inputObject,(inputObject.length));
 object.treeGeneration();
-var inputObject = [3,8,2,4,3,7];
